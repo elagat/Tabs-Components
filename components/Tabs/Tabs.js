@@ -16,11 +16,12 @@ class TabLink {
     this.itemElement = this.element.dataset.tab ;
 
     // Using the Item element, create a new instance of the TabItem class
-    this.tabItem = new TabItem;
+    /* -----If there is an issue with the code it is here.----- */
+    this.tabItem = new TabItem(itemElement);
 
     // Add a click event listener on this instance, calling the select method on click
     /* Syntax: any third boolean parameter required? */
-    TabItem.addEventListener('click', select());
+    this.tabItem.addEventListener('click', select());
   };
 
   select() {
