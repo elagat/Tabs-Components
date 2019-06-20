@@ -49,9 +49,10 @@ class TabItem {
     const items = document.querySelectorAll('.tabs-item');
 
     // Remove the class "tabs-item-selected" from each element
+    items.classList.remove('tabs-item-selected');
 
     // Add a class named "tabs-item-selected" to this element
-    //this.element;
+    this.element.add('tabs-item-selected');
   }
 }
 
