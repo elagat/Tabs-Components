@@ -2,19 +2,25 @@
 class TabLink {
   constructor(element) {
     // Assign this.element to the passed in DOM element
-    // this.element;
+    this.element = element;
 
     // Get the custom data attribute on the Link
-    // this.data;
+    /* This should just get the first instance of the tab data attribute,
+    but I wonder if I would otherwise need to specify the string of '1',
+    or if I need them all? */
+    /* this.element.dataset.tab vs. element.dataset.tab? */
+    this.data = element.dataset.tab;
 
     // Using the custom data attribute get the associated Item element
-    // this.itemElement;
+    /* I think the item element is the string '1' through '4' */
+    this.itemElement = this.element.dataset.tab ;
 
     // Using the Item element, create a new instance of the TabItem class
-    // this.tabItem;
+    this.tabItem = new TabItem;
 
     // Add a click event listener on this instance, calling the select method on click
-
+    /* Syntax: any third boolean parameter required? */
+    TabItem.addEventListener('click', select());
   };
 
   select() {
@@ -35,12 +41,12 @@ class TabLink {
 class TabItem {
   constructor(element) {
     // Assign this.element to the passed in element
-    // this.element;
+    this.element = element;
   }
 
   select() {
     // Select all ".tabs-item" elements from the DOM
-    // const items;
+    const items = document.querySelectorAll('.tabs-item');
 
     // Remove the class "tabs-item-selected" from each element
 
