@@ -2,54 +2,63 @@
 class TabLink {
   constructor(element) {
     // Assign this.element to the passed in DOM element
-    // this.element;
-    
-    // Get the custom data attribute on the Link
-    // this.data;
-    
-    // Using the custom data attribute get the associated Item element
-    // this.itemElement;
-    
-    // Using the Item element, create a new instance of the TabItem class
-    // this.tabItem;
-    
-    // Add a click event listener on this instance, calling the select method on click
+    this.element = element;
 
-  };
+    // Get the custom data attribute on the Link
+    /* This should just get the first instance of the tab data attribute,
+    but I wonder if I would otherwise need to specify the string of '1',
+    or if I need them all? */
+    /* this.element.dataset.tab vs. element.dataset.tab? */
+    this.data = this.element.dataset.tab;
+
+    // Using the custom data attribute get the associated Item element
+    /* I think the item element is the string '1' through '4' */
+    /* -----If there is an issue with the code it is here.----- */
+    this.itemElement = document.querySelector(`.tabs-item[data-tab='${this.data}']`);
+
+    // Using the Item element, create a new instance of the TabItem class
+    this.tabItem = new TabItem(this.itemElement);
+
+    // Add a click event listener on this instance, calling the select method on click
+    /* Syntax: any third boolean parameter required? */
+    this.element.addEventListener('click', () => this.select())
+  }
 
   select() {
     // Get all of the elements with the tabs-link class
-    // const links;
+    const links = document.querySelectorAll('.tabs-link');
 
     // Using a loop or the forEach method remove the 'tabs-link-selected' class from all of the links
-    // Array.from(links).forEach();
+    /* Does this need to be an array? Wouldn't it be easier to use .remove() on the NodeList?*/
+    Array.from(links).forEach(element => element.classList.remove('tabs-link-selected'));
 
     // Add a class named "tabs-link-selected" to this link
-    // this.element;
-    
-    // Call the select method on the item associated with this link
+    this.element.classList.add('tabs-link-selected');
 
+    // Call the select method on the item associated with this link
+    this.tabItem.select();
   }
 }
 
 class TabItem {
   constructor(element) {
     // Assign this.element to the passed in element
-    // this.element;
+    this.element = element;
   }
 
   select() {
     // Select all ".tabs-item" elements from the DOM
-    // const items;
+    const items = document.querySelectorAll('.tabs-item');
 
     // Remove the class "tabs-item-selected" from each element
-    
+    Array.from(items).forEach(element => element.classList.remove('tabs-item-selected'));
+
     // Add a class named "tabs-item-selected" to this element
-    //this.element;
+    this.element.classList.add('tabs-item-selected');
   }
 }
 
-/* START HERE: 
+/* START HERE:
 
 - Select all classes named ".tabs-link" and assign that value to the links variable
 
@@ -59,4 +68,4 @@ class TabItem {
 
 */
 
-links = document.querySelectorAll();
+let links = document.querySelectorAll('.tabs-link').forEach(link => new TabLink(link));
