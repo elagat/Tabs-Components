@@ -9,20 +9,20 @@ class TabLink {
     but I wonder if I would otherwise need to specify the string of '1',
     or if I need them all? */
     /* this.element.dataset.tab vs. element.dataset.tab? */
-    this.data = element.dataset.tab;
+    this.data = this.element.dataset.tab;
 
     // Using the custom data attribute get the associated Item element
     /* I think the item element is the string '1' through '4' */
-    this.itemElement = this.element.dataset.tab ;
+    /* -----If there is an issue with the code it is here.----- */
+    this.itemElement = document.querySelector(`.tabs-item[data-tab='${this.data}']`);
 
     // Using the Item element, create a new instance of the TabItem class
-    /* -----If there is an issue with the code it is here.----- */
-    this.tabItem = new TabItem(itemElement);
+    this.tabItem = new TabItem(this.itemElement);
 
     // Add a click event listener on this instance, calling the select method on click
     /* Syntax: any third boolean parameter required? */
-    this.tabItem.addEventListener('click', select());
-  };
+    this.element.addEventListener('click', () => this.select())
+  }
 
   select() {
     // Get all of the elements with the tabs-link class
@@ -30,13 +30,13 @@ class TabLink {
 
     // Using a loop or the forEach method remove the 'tabs-link-selected' class from all of the links
     /* Does this need to be an array? Wouldn't it be easier to use .remove() on the NodeList?*/
-    links.classList.remove('tabs-link-selected');
+    Array.from(links).forEach(element => element.classList.remove('tabs-link-selected'));
 
     // Add a class named "tabs-link-selected" to this link
-    this.element.add('tabs-link-selected');
+    this.element.classList.add('tabs-link-selected');
 
     // Call the select method on the item associated with this link
-    this.element.select();
+    this.tabItem.select();
   }
 }
 
@@ -51,10 +51,10 @@ class TabItem {
     const items = document.querySelectorAll('.tabs-item');
 
     // Remove the class "tabs-item-selected" from each element
-    items.classList.remove('tabs-item-selected');
+    this.element.classList.remove('tabs-item-selected');
 
     // Add a class named "tabs-item-selected" to this element
-    this.element.add('tabs-item-selected');
+    this.element.classList.add('tabs-item-selected');
   }
 }
 
